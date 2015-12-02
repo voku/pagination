@@ -1,7 +1,13 @@
-pagination
+[![Build Status](https://api.travis-ci.org/voku/pagination.svg?branch=master)](https://travis-ci.org/voku/pagination)
+[![Coverage Status](https://coveralls.io/repos/voku/pagination/badge.svg?branch=master&service=github)](https://coveralls.io/github/voku/pagination?branch=master)
+[![codecov.io](https://codecov.io/github/voku/pagination/coverage.svg?branch=master)](https://codecov.io/github/voku/pagination?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/voku/pagination/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/voku/pagination/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/voku/pagination/v/stable)](https://packagist.org/packages/voku/pagination) [![Total Downloads](https://poser.pugx.org/voku/pagination/downloads)](https://packagist.org/packages/voku/pagination) [![Latest Unstable Version](https://poser.pugx.org/voku/pagination/v/unstable)](https://packagist.org/packages/voku/pagination) [![License](https://poser.pugx.org/voku/pagination/license)](https://packagist.org/packages/voku/pagination)
+
+Paginator
 ==========
 
-Paginate record sets, not tied in directly to a database.
+Pagination, without a database dependency.
 
 ## Usage
 1. include the composer-autoloader
