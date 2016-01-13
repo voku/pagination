@@ -19,6 +19,8 @@ Pagination, without a database dependency.
 5. call the page_links method to create the navigation links
 
 ```php
+use voku\helper\Paginator;
+
 // include the composer-autoloader
 require_once dirname(__DIR__) . '/vendor/composer/autoload_real.php';
 
@@ -50,6 +52,8 @@ echo $pages->page_links('?','&status='.$_GET['status'].'&active='.$_GET['active'
 ##Database example
 
 ```php
+use voku\helper\Paginator;
+
 // include the composer-autoloader
 require_once dirname(__DIR__) . '/vendor/composer/autoload_real.php';
 
@@ -79,6 +83,7 @@ using this class in an MVC environment its almost the same, only the database or
 in the controller:
 
 ```php
+use voku\helper\Paginator;
 
 // create a new object
 $pages = new Paginator('10','p');
