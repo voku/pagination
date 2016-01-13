@@ -11,6 +11,21 @@ Paginator
 
 Pagination, without a database dependency.
 
+##Install / Download
+You can download it from here, or require it using [composer](https://packagist.org/packages/voku/pagination).
+```json
+{
+    "require": {
+      "voku/pagination": "1.*"
+    }
+}
+```
+
+##Install via "composer require"
+```shell
+composer require voku/pagination
+```
+
 ## Usage
 1. include the composer-autoloader
 2. instantiate a new object pass in the number of items per page and the instance identifier, this is used for the GET parameter such as ?p=2
