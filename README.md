@@ -2,12 +2,29 @@
 [![Coverage Status](https://coveralls.io/repos/voku/pagination/badge.svg?branch=master&service=github)](https://coveralls.io/github/voku/pagination?branch=master)
 [![codecov.io](https://codecov.io/github/voku/pagination/coverage.svg?branch=master)](https://codecov.io/github/voku/pagination?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/voku/pagination/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/voku/pagination/?branch=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/4576482a3fc44cd196b566a422da9751)](https://www.codacy.com/app/voku/pagination)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f2907ec9-2647-45bb-9606-8d1382a75d4d/mini.png)](https://insight.sensiolabs.com/projects/f2907ec9-2647-45bb-9606-8d1382a75d4d)
 [![Latest Stable Version](https://poser.pugx.org/voku/pagination/v/stable)](https://packagist.org/packages/voku/pagination) [![Total Downloads](https://poser.pugx.org/voku/pagination/downloads)](https://packagist.org/packages/voku/pagination) [![Latest Unstable Version](https://poser.pugx.org/voku/pagination/v/unstable)](https://packagist.org/packages/voku/pagination) [![License](https://poser.pugx.org/voku/pagination/license)](https://packagist.org/packages/voku/pagination)
 
 Paginator
 ==========
 
 Pagination, without a database dependency.
+
+##Install / Download
+You can download it from here, or require it using [composer](https://packagist.org/packages/voku/pagination).
+```json
+{
+    "require": {
+      "voku/pagination": "1.*"
+    }
+}
+```
+
+##Install via "composer require"
+```shell
+composer require voku/pagination
+```
 
 ## Usage
 1. include the composer-autoloader
@@ -17,6 +34,8 @@ Pagination, without a database dependency.
 5. call the page_links method to create the navigation links
 
 ```php
+use voku\helper\Paginator;
+
 // include the composer-autoloader
 require_once dirname(__DIR__) . '/vendor/composer/autoload_real.php';
 
@@ -48,6 +67,8 @@ echo $pages->page_links('?','&status='.$_GET['status'].'&active='.$_GET['active'
 ##Database example
 
 ```php
+use voku\helper\Paginator;
+
 // include the composer-autoloader
 require_once dirname(__DIR__) . '/vendor/composer/autoload_real.php';
 
@@ -77,6 +98,7 @@ using this class in an MVC environment its almost the same, only the database or
 in the controller:
 
 ```php
+use voku\helper\Paginator;
 
 // create a new object
 $pages = new Paginator('10','p');
