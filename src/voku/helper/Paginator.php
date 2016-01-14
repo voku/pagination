@@ -77,7 +77,7 @@ class Paginator
    */
   public function get_limit()
   {
-    return ' LIMIT ' . $this->get_start() . ',' . $this->_perPage;
+    return ' LIMIT ' . (int)$this->get_start() . ',' . (int)$this->_perPage;
   }
 
   /**
