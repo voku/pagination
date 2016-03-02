@@ -77,12 +77,27 @@ class Paginator
   }
 
   /**
-   * sets the object parameter
+   * set the object parameter
    */
   private function set_instance()
   {
-    $this->_pageIdentifierFromGet = isset($_GET[$this->_instance]) ? $_GET[$this->_instance] : '';
-    $this->_pageIdentifierFromGet = ($this->_pageIdentifierFromGet == 0 ? 1 : $this->_pageIdentifierFromGet);
+    if (isset($_GET[$this->_instance])) {
+      $this->_pageIdentifierFromGet = (int)$_GET[$this->_instance];
+    }
+
+    if (!$this->_pageIdentifierFromGet) {
+      $this->_pageIdentifierFromGet = 1;
+    }
+  }
+
+  /**
+   * set the "pageIdentifierFromGet"
+   * 
+   * @param $pageId
+   */
+  public function set_pageIdentifierFromGet($pageId)
+  {
+    $this->_pageIdentifierFromGet = $pageId;
   }
 
   /**
