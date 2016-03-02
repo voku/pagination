@@ -59,6 +59,11 @@ class Paginator
   private $_paginatorEndChar = '&raquo;';
 
   /**
+   * @var bool
+   */
+  private $_withLinkInCurrentLi = false;
+
+  /**
    * __construct
    *
    * @param int    $perPage
@@ -88,6 +93,16 @@ class Paginator
   public function set_total($_totalRows)
   {
     $this->_totalRows = (int)$_totalRows;
+  }
+
+  /**
+   * set the "withLinkInCurrentLi"
+   *
+   * @param bool $bool
+   */
+  public function set_withLinkInCurrentLi($bool)
+  {
+    $this->_withLinkInCurrentLi = (bool)$bool;
   }
 
   /**
@@ -295,10 +310,17 @@ class Paginator
   {
     $html = '';
 
-    if ($counter == $this->_pageIdentifierFromGet) {
-      $html .= '<li class="current">' . $counter . '</li>';
+    $textAndOrLink = '<a href="' . $path . $this->_instance . '=' . $counter . '">' . $counter . '</a>';
+    if ($this->_withLinkInCurrentLi === false) {
+      $currentTextAndOrLink = $counter;
     } else {
-      $html .= '<li><a href="' . $path . $this->_instance . '=' . $counter . '">' . $counter . '</a></li>';
+      $currentTextAndOrLink = $textAndOrLink;
+    }
+
+    if ($counter == $this->_pageIdentifierFromGet) {
+      $html .= '<li class="current">' . $currentTextAndOrLink . '</li>';
+    } else {
+      $html .= '<li>' . $textAndOrLink . '</li>';
     }
 
     return $html;
