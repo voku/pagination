@@ -39,6 +39,16 @@ class Paginator
   private $_totalRows = 0;
 
   /**
+   * @var string
+   */
+  private $_paginatorStartChar = '&laquo;';
+
+  /**
+   * @var string
+   */
+  private $_paginatorEndChar = '&raquo;';
+
+  /**
    * __construct
    *
    * @param int    $perPage
@@ -68,6 +78,26 @@ class Paginator
   public function set_total($_totalRows)
   {
     $this->_totalRows = (int)$_totalRows;
+  }
+
+  /**
+   * set the "paginatorStartChar"
+   *
+   * @param $string
+   */
+  public function set_paginatorStartChar($string)
+  {
+    $this->_paginatorStartChar = $string;
+  }
+
+  /**
+   * set the "paginatorEndChar"
+   *
+   * @param $string
+   */
+  public function set_paginatorEndChar($string)
+  {
+    $this->_paginatorEndChar = $string;
   }
 
   /**
@@ -148,9 +178,9 @@ class Paginator
       $pagination .= '<ul class="pagination">';
 
       if ($this->_pageIdentifierFromGet > 1) {
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $prev . '"> &laquo; </a></li>';
+        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $prev . '">' . $this->_paginatorStartChar . '</a></li>';
       } else {
-        $pagination .= '<li class="arrow unavailable"> &laquo; </li>';
+        $pagination .= '<li class="arrow unavailable">' . $this->_paginatorStartChar . '</li>';
       }
 
       if ($lastpage < 7 + ($adjacents * 2)) {
@@ -200,9 +230,9 @@ class Paginator
       }
 
       if ($this->_pageIdentifierFromGet < $counter - 1) {
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $next . '">&raquo;</a></li>';
+        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
       } else {
-        $pagination .= '<li class="disabled">&raquo;</li>';
+        $pagination .= '<li class="disabled">' . $this->_paginatorEndChar . '</li>';
       }
 
       $pagination .= '</ul>';
