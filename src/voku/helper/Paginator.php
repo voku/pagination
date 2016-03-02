@@ -92,7 +92,7 @@ class Paginator
 
   /**
    * set the "pageIdentifierFromGet"
-   * 
+   *
    * @param $pageId
    */
   public function set_pageIdentifierFromGet($pageId)
