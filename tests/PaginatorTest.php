@@ -20,7 +20,7 @@ class PaginatorTest extends PHPUnit_Framework_TestCase
   public function testPageLinks()
   {
     self::assertEquals(
-        '<ul class="pagination"><li class="arrow unavailable"> &laquo; </li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
+        '<ul class="pagination"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
         $this->paginator->page_links('?pid=1&')
     );
   }
