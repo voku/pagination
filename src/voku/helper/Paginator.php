@@ -46,6 +46,16 @@ class Paginator
   /**
    * @var string
    */
+  private $_paginatorStartCssClass = 'pagination--start';
+
+  /**
+   * @var string
+   */
+  private $_paginatorEndCssClass = 'pagination--end';
+
+  /**
+   * @var string
+   */
   private $_paginatorEndChar = '&raquo;';
 
   /**
@@ -80,6 +90,25 @@ class Paginator
     $this->_totalRows = (int)$_totalRows;
   }
 
+  /**
+   * set the "paginatorStartCssClass"
+   *
+   * @param $string
+   */
+  public function set_paginatorStartCssClass($string)
+  {
+    $this->_paginatorStartCssClass = $string;
+  }
+
+  /**
+   * set the "paginatorEndCssClass"
+   *
+   * @param $string
+   */
+  public function set_paginatorEndCssClass($string)
+  {
+    $this->_paginatorEndCssClass = $string;
+  }
   /**
    * set the "paginatorStartChar"
    *
@@ -178,9 +207,9 @@ class Paginator
       $pagination .= '<ul class="pagination">';
 
       if ($this->_pageIdentifierFromGet > 1) {
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $prev . '">' . $this->_paginatorStartChar . '</a></li>';
+        $pagination .= '<li class="' . $this->_paginatorStartCssClass . '"><a href="' . $path . $this->_instance . '=' . $prev . '">' . $this->_paginatorStartChar . '</a></li>';
       } else {
-        $pagination .= '<li class="arrow unavailable">' . $this->_paginatorStartChar . '</li>';
+        $pagination .= '<li class="' . $this->_paginatorStartCssClass . '">' . $this->_paginatorStartChar . '</li>';
       }
 
       if ($lastpage < 7 + ($adjacents * 2)) {
@@ -230,9 +259,9 @@ class Paginator
       }
 
       if ($this->_pageIdentifierFromGet < $counter - 1) {
-        $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
+        $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><a href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
       } else {
-        $pagination .= '<li class="disabled">' . $this->_paginatorEndChar . '</li>';
+        $pagination .= '<li class="' . $this->_paginatorEndCssClass . '">' . $this->_paginatorEndChar . '</li>';
       }
 
       $pagination .= '</ul>';
