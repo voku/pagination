@@ -41,17 +41,17 @@ class Paginator
   /**
    * @var string
    */
-  private $_paginatorStartChar = '&laquo;';
-
-  /**
-   * @var string
-   */
   private $_paginatorStartCssClass = 'pagination--start';
 
   /**
    * @var string
    */
   private $_paginatorEndCssClass = 'pagination--end';
+
+  /**
+   * @var string
+   */
+  private $_paginatorStartChar = '&laquo;';
 
   /**
    * @var string
