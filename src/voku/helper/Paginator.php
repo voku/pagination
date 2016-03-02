@@ -174,7 +174,6 @@ class Paginator
   public function getNextPrevLinks($path = '?')
   {
     // init
-    $counter = 0;
     $nextLink = '';
     $prevLink = '';
 
@@ -189,7 +188,7 @@ class Paginator
         $prevLink = '<link rel="prev" href="' . $path . $this->_instance . '=' . $prev . '">';
       }
 
-      if ($this->_pageIdentifierFromGet < $counter - 1) {
+      if ($this->_pageIdentifierFromGet < $lastpage - 1) {
         $nextLink = '<link rel="next" href="' . $path . $this->_instance . '=' . $next . '">';
       }
 
