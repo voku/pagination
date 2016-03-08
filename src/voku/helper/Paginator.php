@@ -64,6 +64,11 @@ class Paginator
   private $_withLinkInCurrentLi = false;
 
   /**
+   * @var int
+   */
+  private $_adjacent = 2;
+
+  /**
    * __construct
    *
    * @param int    $perPage
@@ -101,13 +106,23 @@ class Paginator
   }
 
   /**
+   * set the "adjacent"
+   *
+   * @param int $adjacent
+   */
+  public function set_adjacent($adjacent)
+  {
+    $this->_adjacent = (int)$adjacent;
+  }
+
+  /**
    * set the "totalRows"
    *
-   * @param int $_totalRows
+   * @param int $totalRows
    */
-  public function set_total($_totalRows)
+  public function set_total($totalRows)
   {
-    $this->_totalRows = (int)$_totalRows;
+    $this->_totalRows = (int)$totalRows;
   }
 
   /**
@@ -223,7 +238,6 @@ class Paginator
   {
     // init
     $counter = 0;
-    $adjacents = 2;
     $pagination = '';
 
     $prev = $this->_pageIdentifierFromGet - 1;
@@ -241,16 +255,16 @@ class Paginator
         $pagination .= '<li class="' . $this->_paginatorStartCssClass . '">' . $this->_paginatorStartChar . '</li>';
       }
 
-      if ($lastpage < 7 + ($adjacents * 2)) {
+      if ($lastpage < 7 + ($this->_adjacent * 2)) {
 
         for ($counter = 1; $counter <= $lastpage; $counter++) {
           $pagination .= $this->createLiCurrentOrNot($path, $counter);
         }
 
-      } elseif ($this->_pageIdentifierFromGet < 5 && ($lastpage > 5 + ($adjacents * 2))) {
+      } elseif ($this->_pageIdentifierFromGet < 5 && ($lastpage > 5 + ($this->_adjacent * 2))) {
 
-        if ($this->_pageIdentifierFromGet < 1 + ($adjacents * 2)) {
-          for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++) {
+        if ($this->_pageIdentifierFromGet < 1 + ($this->_adjacent * 2)) {
+          for ($counter = 1; $counter < 4 + ($this->_adjacent * 2); $counter++) {
             $pagination .= $this->createLiCurrentOrNot($path, $counter);
           }
         }
@@ -259,7 +273,7 @@ class Paginator
         $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
         $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
 
-      } elseif ($lastpage - ($adjacents * 2) > $this->_pageIdentifierFromGet && $this->_pageIdentifierFromGet > ($adjacents * 2)) {
+      } elseif ($lastpage - ($this->_adjacent * 2) > $this->_pageIdentifierFromGet && $this->_pageIdentifierFromGet > ($this->_adjacent * 2)) {
 
         $pagination .= $this->createLiFirstAndSecond($path);
 
@@ -267,7 +281,7 @@ class Paginator
           $pagination .= '<li>&hellip;</li>';
         }
 
-        for ($counter = $this->_pageIdentifierFromGet - $adjacents; $counter <= $this->_pageIdentifierFromGet + $adjacents; $counter++) {
+        for ($counter = $this->_pageIdentifierFromGet - $this->_adjacent; $counter <= $this->_pageIdentifierFromGet + $this->_adjacent; $counter++) {
           $pagination .= $this->createLiCurrentOrNot($path, $counter);
         }
 
@@ -281,7 +295,7 @@ class Paginator
 
         $pagination .= '<li>&hellip;</li>';
 
-        for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++) {
+        for ($counter = $lastpage - (2 + ($this->_adjacent * 2)); $counter <= $lastpage; $counter++) {
           $pagination .= $this->createLiCurrentOrNot($path, $counter);
         }
 
