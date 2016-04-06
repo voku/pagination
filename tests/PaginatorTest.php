@@ -16,21 +16,21 @@ class PaginatorTest extends PHPUnit_Framework_TestCase
   public function testPageLinks()
   {
     self::assertEquals(
-        '<ul class="pagination"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=5">5</a></li><li><a href="?pid=1&pager=6">6</a></li><li><a href="?pid=1&pager=7">7</a></li><li>&hellip;</li><li><a href="?pid=1&pager=16">16</a></li><li><a href="?pid=1&pager=17">17</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
+        '<ul class="pagination " data-pagination-current="1" data-pagination-prev="false" data-pagination-next="2" data-pagination-length="17"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=5">5</a></li><li><a href="?pid=1&pager=6">6</a></li><li><a href="?pid=1&pager=7">7</a></li><li>&hellip;</li><li><a href="?pid=1&pager=16">16</a></li><li><a href="?pid=1&pager=17">17</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
         $this->paginator->page_links('?pid=1&')
     );
 
     $this->paginator->set_adjacent(8);
 
     self::assertEquals(
-        '<ul class="pagination"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=5">5</a></li><li><a href="?pid=1&pager=6">6</a></li><li><a href="?pid=1&pager=7">7</a></li><li><a href="?pid=1&pager=8">8</a></li><li><a href="?pid=1&pager=9">9</a></li><li><a href="?pid=1&pager=10">10</a></li><li><a href="?pid=1&pager=11">11</a></li><li><a href="?pid=1&pager=12">12</a></li><li><a href="?pid=1&pager=13">13</a></li><li><a href="?pid=1&pager=14">14</a></li><li><a href="?pid=1&pager=15">15</a></li><li><a href="?pid=1&pager=16">16</a></li><li><a href="?pid=1&pager=17">17</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
+        '<ul class="pagination " data-pagination-current="1" data-pagination-prev="false" data-pagination-next="2" data-pagination-length="17"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=5">5</a></li><li><a href="?pid=1&pager=6">6</a></li><li><a href="?pid=1&pager=7">7</a></li><li><a href="?pid=1&pager=8">8</a></li><li><a href="?pid=1&pager=9">9</a></li><li><a href="?pid=1&pager=10">10</a></li><li><a href="?pid=1&pager=11">11</a></li><li><a href="?pid=1&pager=12">12</a></li><li><a href="?pid=1&pager=13">13</a></li><li><a href="?pid=1&pager=14">14</a></li><li><a href="?pid=1&pager=15">15</a></li><li><a href="?pid=1&pager=16">16</a></li><li><a href="?pid=1&pager=17">17</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
         $this->paginator->page_links('?pid=1&')
     );
 
     $this->paginator->set_adjacent(2);
 
     self::assertEquals(
-        '<ul class="pagination"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=5">5</a></li><li><a href="?pid=1&pager=6">6</a></li><li><a href="?pid=1&pager=7">7</a></li><li>&hellip;</li><li><a href="?pid=1&pager=16">16</a></li><li><a href="?pid=1&pager=17">17</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
+        '<ul class="pagination " data-pagination-current="1" data-pagination-prev="false" data-pagination-next="2" data-pagination-length="17"><li class="pagination--start">&laquo;</li><li class="current">1</li><li><a href="?pid=1&pager=2">2</a></li><li><a href="?pid=1&pager=3">3</a></li><li><a href="?pid=1&pager=4">4</a></li><li><a href="?pid=1&pager=5">5</a></li><li><a href="?pid=1&pager=6">6</a></li><li><a href="?pid=1&pager=7">7</a></li><li>&hellip;</li><li><a href="?pid=1&pager=16">16</a></li><li><a href="?pid=1&pager=17">17</a></li><li class="pagination--end"><a href="?pid=1&pager=2">&raquo;</a></li></ul>',
         $this->paginator->page_links('?pid=1&')
     );
   }

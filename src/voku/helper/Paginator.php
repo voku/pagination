@@ -41,6 +41,11 @@ class Paginator
   /**
    * @var string
    */
+  private $_paginatorUlCssClass = '';
+
+  /**
+   * @var string
+   */
   private $_paginatorStartCssClass = 'pagination--start';
 
   /**
@@ -76,8 +81,8 @@ class Paginator
    */
   public function __construct($perPage, $instance)
   {
-    $this->_instance = (string) $instance;
-    $this->_perPage = (int) $perPage;
+    $this->_instance = (string)$instance;
+    $this->_perPage = (int)$perPage;
     $this->set_instance();
   }
 
@@ -102,7 +107,7 @@ class Paginator
    */
   public function set_pageIdentifierFromGet($pageId)
   {
-    $this->_pageIdentifierFromGet = $pageId;
+    $this->_pageIdentifierFromGet = (int)$pageId;
   }
 
   /**
@@ -136,6 +141,16 @@ class Paginator
   }
 
   /**
+   * set the "paginatorUlCssClass"
+   *
+   * @param $string
+   */
+  public function set_paginatorUlCssClass($string)
+  {
+    $this->_paginatorUlCssClass = $string;
+  }
+
+  /**
    * set the "paginatorStartCssClass"
    *
    * @param $string
@@ -154,6 +169,7 @@ class Paginator
   {
     $this->_paginatorEndCssClass = $string;
   }
+
   /**
    * set the "paginatorStartChar"
    *
@@ -210,7 +226,7 @@ class Paginator
     $prev = $this->_pageIdentifierFromGet - 1;
     $next = $this->_pageIdentifierFromGet + 1;
 
-    $lastpage = ceil($this->_totalRows / $this->_perPage);
+    $lastpage = (int)ceil($this->_totalRows / $this->_perPage);
 
     if ($lastpage > 1) {
 
@@ -246,8 +262,20 @@ class Paginator
     $lastpage = ceil($this->_totalRows / $this->_perPage);
     $tmpSave = $lastpage - 1;
 
+    if ($this->_pageIdentifierFromGet < $lastpage) {
+      $nextDataAttribute = $next;
+    } else {
+      $nextDataAttribute = 'false';
+    }
+
+    if ($this->_pageIdentifierFromGet > 1) {
+      $prevDataAttribute = $prev;
+    } else {
+      $prevDataAttribute = 'false';
+    }
+
     if ($lastpage > 1) {
-      $pagination .= '<ul class="pagination">';
+      $pagination .= '<ul class="pagination ' . $this->_paginatorUlCssClass . '" data-pagination-current="' . $this->_pageIdentifierFromGet . '" data-pagination-prev="' . $prevDataAttribute . '" data-pagination-next="' . $nextDataAttribute . '" data-pagination-length="' . $lastpage . '">';
 
       if ($this->_pageIdentifierFromGet > 1) {
         $pagination .= '<li class="' . $this->_paginatorStartCssClass . '"><a href="' . $path . $this->_instance . '=' . $prev . '">' . $this->_paginatorStartChar . '</a></li>';
