@@ -20,7 +20,7 @@ You can download it from here, or require it using [composer](https://packagist.
 ```json
 {
     "require": {
-      "voku/pagination": "1.*"
+      "voku/pagination": "2.*"
     }
 }
 ```
