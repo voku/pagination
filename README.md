@@ -65,7 +65,7 @@ echo $pages->page_links('&');
 The method also allows you to pass in extra data such as a series of GET's
 
 ```php
-echo $pages->page_links('?','&status='.$_GET['status'].'&active='.$_GET['active']);
+echo $pages->page_links('?' . 'status='.$_GET['status'].'&active='.$_GET['active'] . '&');
 ``` 
  
 ##Database example
