@@ -87,127 +87,80 @@ class Paginator
   }
 
   /**
-   * set the object parameter
+   * @param string $path
+   * @param int    $counter
+   *
+   * @return string
    */
-  private function set_instance()
+  private function createLiCurrentOrNot($path, $counter)
   {
-    if (isset($_GET[$this->_instance])) {
-      $this->_pageIdentifierFromGet = (int)$_GET[$this->_instance];
+    // init
+    $html = '';
+    $textAndOrLink = '<a href="' . $path . $this->_instance . '=' . $counter . '">' . $counter . '</a>';
+
+    if ($this->_withLinkInCurrentLi === false) {
+      $currentTextAndOrLink = $counter;
+    } else {
+      $currentTextAndOrLink = $textAndOrLink;
     }
 
-    if (!$this->_pageIdentifierFromGet) {
-      $this->_pageIdentifierFromGet = 1;
+    if ($counter == $this->_pageIdentifierFromGet) {
+      $html .= '<li class="current">' . $currentTextAndOrLink . '</li>';
+    } else {
+      $html .= '<li>' . $textAndOrLink . '</li>';
+    }
+
+    return $html;
+  }
+
+  /**
+   * @param string $path
+   * @param int    $counter
+   *
+   * @return string
+   */
+  private function createLiCurrentOrNotRaw($path, $counter)
+  {
+    $textAndOrLink = $path . $this->_instance . '=' . $counter;
+
+    if ($this->_withLinkInCurrentLi === false) {
+      $currentTextAndOrLink = $counter;
+    } else {
+      $currentTextAndOrLink = $textAndOrLink;
+    }
+
+    if ($counter == $this->_pageIdentifierFromGet) {
+      return array($currentTextAndOrLink => true);
+    } else {
+      return array($textAndOrLink => false);
     }
   }
 
   /**
-   * set the "pageIdentifierFromGet"
+   * @param string $path
    *
-   * @param $pageId
+   * @return string
    */
-  public function set_pageIdentifierFromGet($pageId)
+  private function createLiFirstAndSecond($path)
   {
-    $this->_pageIdentifierFromGet = (int)$pageId;
+    $html = '';
+
+    $html .= '<li><a href="' . $path . $this->_instance . '=1">1</a></li>';
+    $html .= '<li><a href="' . $path . $this->_instance . '=2">2</a></li>';
+
+    return $html;
   }
 
   /**
-   * set the "adjacent"
+   * @param string $path
+   * @param array  $pagination
    *
-   * @param int $adjacent
+   * @return void
    */
-  public function set_adjacent($adjacent)
+  private function createLiFirstAndSecondRaw($path, array &$pagination)
   {
-    $this->_adjacent = (int)$adjacent;
-  }
-
-  /**
-   * set the "totalRows"
-   *
-   * @param int $totalRows
-   */
-  public function set_total($totalRows)
-  {
-    $this->_totalRows = (int)$totalRows;
-  }
-
-  /**
-   * set the "withLinkInCurrentLi"
-   *
-   * @param bool $bool
-   */
-  public function set_withLinkInCurrentLi($bool)
-  {
-    $this->_withLinkInCurrentLi = (bool)$bool;
-  }
-
-  /**
-   * set the "paginatorUlCssClass"
-   *
-   * @param $string
-   */
-  public function set_paginatorUlCssClass($string)
-  {
-    $this->_paginatorUlCssClass = $string;
-  }
-
-  /**
-   * set the "paginatorStartCssClass"
-   *
-   * @param $string
-   */
-  public function set_paginatorStartCssClass($string)
-  {
-    $this->_paginatorStartCssClass = $string;
-  }
-
-  /**
-   * set the "paginatorEndCssClass"
-   *
-   * @param $string
-   */
-  public function set_paginatorEndCssClass($string)
-  {
-    $this->_paginatorEndCssClass = $string;
-  }
-
-  /**
-   * set the "paginatorStartChar"
-   *
-   * @param $string
-   */
-  public function set_paginatorStartChar($string)
-  {
-    $this->_paginatorStartChar = $string;
-  }
-
-  /**
-   * set the "paginatorEndChar"
-   *
-   * @param $string
-   */
-  public function set_paginatorEndChar($string)
-  {
-    $this->_paginatorEndChar = $string;
-  }
-
-  /**
-   * returns the limit for the data source
-   *
-   * @return string LIMIT-String for a SQL-Query
-   */
-  public function get_limit()
-  {
-    return ' LIMIT ' . (int)$this->get_start() . ',' . (int)$this->_perPage;
-  }
-
-  /**
-   * creates the starting point for get_limit()
-   *
-   * @return int
-   */
-  public function get_start()
-  {
-    return ($this->_pageIdentifierFromGet * $this->_perPage) - $this->_perPage;
+    $pagination[] = array($path . $this->_instance . '=1' => false);
+    $pagination[] = array($path . $this->_instance . '=2' => false);
   }
 
   /**
@@ -241,6 +194,36 @@ class Paginator
     }
 
     return $nextLink . $prevLink;
+  }
+
+  /**
+   * returns the limit for the data source
+   *
+   * @return string LIMIT-String for an SQL-query
+   */
+  public function get_limit()
+  {
+    return ' LIMIT ' . (int)$this->get_start() . ',' . (int)$this->_perPage;
+  }
+
+  /**
+   * returns the limit for the data source as array [start, end]
+   *
+   * @return array LIMIT-array for e.g. SQL-queries
+   */
+  public function get_limit_raw()
+  {
+    return array((int)$this->get_start(), (int)$this->_perPage);
+  }
+
+  /**
+   * creates the starting point for get_limit()
+   *
+   * @return int
+   */
+  public function get_start()
+  {
+    return ($this->_pageIdentifierFromGet * $this->_perPage) - $this->_perPage;
   }
 
   /**
@@ -309,7 +292,8 @@ class Paginator
           $pagination .= '<li>&hellip;</li>';
         }
 
-        for ($counter = $this->_pageIdentifierFromGet - $this->_adjacent; $counter <= $this->_pageIdentifierFromGet + $this->_adjacent; $counter++) {
+        for ($counter = $this->_pageIdentifierFromGet - $this->_adjacent;
+             $counter <= $this->_pageIdentifierFromGet + $this->_adjacent; $counter++) {
           $pagination .= $this->createLiCurrentOrNot($path, $counter);
         }
 
@@ -342,43 +326,223 @@ class Paginator
   }
 
   /**
+   * create links as array for the paginator
+   *
    * @param string $path
    *
-   * @return string
+   * @return array
    */
-  private function createLiFirstAndSecond($path)
+  public function page_links_raw($path = '?')
   {
-    $html = '';
+    // init
+    $counter = 0;
+    $pagination = array();
 
-    $html .= '<li><a href="' . $path . $this->_instance . '=1">1</a></li>';
-    $html .= '<li><a href="' . $path . $this->_instance . '=2">2</a></li>';
+    $prev = $this->_pageIdentifierFromGet - 1;
+    $next = $this->_pageIdentifierFromGet + 1;
 
-    return $html;
+    $lastpage = ceil($this->_totalRows / $this->_perPage);
+    $tmpSave = $lastpage - 1;
+
+    if ($lastpage > 1) {
+
+      if ($this->_pageIdentifierFromGet > 1) {
+        $pagination[] = array($path . $this->_instance . '=' . $prev => false);
+      }
+
+      if ($lastpage < 7 + ($this->_adjacent * 2)) {
+
+        for ($counter = 1; $counter <= $lastpage; $counter++) {
+          $pagination[] = $this->createLiCurrentOrNotRaw($path, $counter);
+        }
+
+      } elseif ($this->_pageIdentifierFromGet < 5 && ($lastpage > 5 + ($this->_adjacent * 2))) {
+
+        if ($this->_pageIdentifierFromGet < 1 + ($this->_adjacent * 2)) {
+          for ($counter = 1; $counter < 4 + ($this->_adjacent * 2); $counter++) {
+            $pagination[] = $this->createLiCurrentOrNotRaw($path, $counter);
+          }
+        }
+
+        $pagination[] = array('' => false);
+        $pagination[] = array($path . $this->_instance . '=' . $tmpSave => false);
+        $pagination[] = array($path . $this->_instance . '=' . $lastpage => false);
+
+      } elseif ($lastpage - ($this->_adjacent * 2) > $this->_pageIdentifierFromGet && $this->_pageIdentifierFromGet > ($this->_adjacent * 2)) {
+
+        $this->createLiFirstAndSecondRaw($path, $pagination);
+
+        if ($this->_pageIdentifierFromGet != 5) {
+          $pagination[] = array('' => false);
+        }
+
+        for ($counter = $this->_pageIdentifierFromGet - $this->_adjacent;
+             $counter <= $this->_pageIdentifierFromGet + $this->_adjacent; $counter++) {
+          $pagination[] = $this->createLiCurrentOrNotRaw($path, $counter);
+        }
+
+        $pagination[] = array('' => false);
+        $pagination[] = array($path . $this->_instance . '=' . $tmpSave => false);
+        $pagination[] = array($path . $this->_instance . '=' . $lastpage => false);
+
+      } else {
+
+        $this->createLiFirstAndSecondRaw($path, $pagination);
+
+        $pagination[] = array('' => false);
+
+        for ($counter = $lastpage - (2 + ($this->_adjacent * 2)); $counter <= $lastpage; $counter++) {
+          $pagination[] = $this->createLiCurrentOrNot($path, $counter);
+        }
+
+      }
+
+      if ($this->_pageIdentifierFromGet < $counter - 1) {
+        $pagination[] = array($path . $this->_instance . '=' . $next => false);
+      }
+
+    }
+
+    return $pagination;
   }
 
   /**
-   * @param string $path
-   * @param int    $counter
+   * set the "adjacent"
    *
-   * @return string
+   * @param int $adjacent
+   *
+   * @return $this
    */
-  private function createLiCurrentOrNot($path, $counter)
+  public function set_adjacent($adjacent)
   {
-    $html = '';
+    $this->_adjacent = (int)$adjacent;
 
-    $textAndOrLink = '<a href="' . $path . $this->_instance . '=' . $counter . '">' . $counter . '</a>';
-    if ($this->_withLinkInCurrentLi === false) {
-      $currentTextAndOrLink = $counter;
-    } else {
-      $currentTextAndOrLink = $textAndOrLink;
+    return $this;
+  }
+
+  /**
+   * set the object parameter
+   */
+  private function set_instance()
+  {
+    if (isset($_GET[$this->_instance])) {
+      $this->_pageIdentifierFromGet = (int)$_GET[$this->_instance];
     }
 
-    if ($counter == $this->_pageIdentifierFromGet) {
-      $html .= '<li class="current">' . $currentTextAndOrLink . '</li>';
-    } else {
-      $html .= '<li>' . $textAndOrLink . '</li>';
+    if (!$this->_pageIdentifierFromGet) {
+      $this->_pageIdentifierFromGet = 1;
     }
+  }
 
-    return $html;
+  /**
+   * set the "pageIdentifierFromGet"
+   *
+   * @param int $pageId
+   *
+   * @return $this
+   */
+  public function set_pageIdentifierFromGet($pageId)
+  {
+    $this->_pageIdentifierFromGet = (int)$pageId;
+
+    return $this;
+  }
+
+  /**
+   * set the "paginatorEndChar"
+   *
+   * @param string $string
+   *
+   * @return $this
+   */
+  public function set_paginatorEndChar($string)
+  {
+    $this->_paginatorEndChar = $string;
+
+    return $this;
+  }
+
+  /**
+   * set the "paginatorEndCssClass"
+   *
+   * @param string $string
+   *
+   * @return $this
+   */
+  public function set_paginatorEndCssClass($string)
+  {
+    $this->_paginatorEndCssClass = $string;
+
+    return $this;
+  }
+
+  /**
+   * set the "paginatorStartChar"
+   *
+   * @param string $string
+   *
+   * @return $this
+   */
+  public function set_paginatorStartChar($string)
+  {
+    $this->_paginatorStartChar = $string;
+
+    return $this;
+  }
+
+  /**
+   * set the "paginatorStartCssClass"
+   *
+   * @param string $string
+   *
+   * @return $this
+   */
+  public function set_paginatorStartCssClass($string)
+  {
+    $this->_paginatorStartCssClass = $string;
+
+    return $this;
+  }
+
+  /**
+   * set the "paginatorUlCssClass"
+   *
+   * @param string $string
+   *
+   * @return $this
+   */
+  public function set_paginatorUlCssClass($string)
+  {
+    $this->_paginatorUlCssClass = $string;
+
+    return $this;
+  }
+
+  /**
+   * set the "totalRows"
+   *
+   * @param int $totalRows
+   *
+   * @return $this
+   */
+  public function set_total($totalRows)
+  {
+    $this->_totalRows = (int)$totalRows;
+
+    return $this;
+  }
+
+  /**
+   * set the "withLinkInCurrentLi"
+   *
+   * @param bool $bool
+   *
+   * @return $this
+   */
+  public function set_withLinkInCurrentLi($bool)
+  {
+    $this->_withLinkInCurrentLi = (bool)$bool;
+
+    return $this;
   }
 }
