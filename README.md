@@ -15,7 +15,7 @@ Paginator
 
 Pagination, without a database dependency.
 
-##Install / Download
+## Install / Download
 You can download it from here, or require it using [composer](https://packagist.org/packages/voku/pagination).
 ```json
 {
@@ -41,7 +41,7 @@ composer require voku/pagination
 use voku\helper\Paginator;
 
 // include the composer-autoloader
-require_once dirname(__DIR__) . '/vendor/composer/autoload_real.php';
+require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 $pages = new Paginator('10','p');
 $pages->set_total('100'); //or a number of records
@@ -65,10 +65,10 @@ echo $pages->page_links('&');
 The method also allows you to pass in extra data such as a series of GET's
 
 ```php
-echo $pages->page_links('?' . 'status='.$_GET['status'].'&active='.$_GET['active'] . '&');
+echo $pages->page_links('?' . 'status=' . $_GET['status'] . '&active=' . $_GET['active'] . '&');
 ``` 
  
-##Database example
+## Database example
 
 ```php
 use voku\helper\Paginator;
@@ -86,7 +86,7 @@ $total = count($rows);
 // pass number of records to
 $pages->set_total($total); 
 
-$data = $db->query('SELECT * FROM table '.$pages->get_limit());
+$data = $db->query('SELECT * FROM table ' . $pages->get_limit());
 foreach($data as $row) {
   // display the records here
 }
@@ -95,7 +95,7 @@ foreach($data as $row) {
 echo $pages->page_links();
 ```
 
-##MVC example
+## MVC example
 
 using this class in an MVC environment its almost the same, only the database or dataset calls come from the model instead of the page directly.
 
@@ -118,4 +118,53 @@ $data['page_links'] = $pages->page_links();
 
 // then pass this to the view, may be different depending on the system
 $this->_view->render('index', $data);
+```
+
+## API example
+
+```php
+use voku\helper\Paginator;
+
+// include the composer-autoloader
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+// create new object pass in number of pages and identifier
+$pages = new Paginator('10','p');
+
+// get number of total records
+$rows = $db->query('SELECT id FROM table');
+$total = count($rows);
+
+// pass number of records to
+$pages->set_total($total); 
+
+$data = $db->query('SELECT * FROM table ' . $pages->get_limit());
+foreach($data as $row) {
+  // display the records here
+}
+
+// create the api-call
+header('Content-Type: application/json');
+echo json_encode($pages->page_links_raw());
+```
+
+... OR ...
+
+```php
+use voku\helper\Paginator;
+
+// include the composer-autoloader
+require_once dirname(__DIR__) . '/vendor/autoload.php';
+
+$page = (int)$_GET['page'];
+$perPage = (int)$_GET['per_page'];
+
+$data = array('some', 'kind', 'of', 'data');
+
+// use the helper-class to reduce the number of pages
+$result = PaginatorHelper::reduceData($data, $perPage, $page);
+
+// create the api-call
+header('Content-Type: application/json');
+echo json_encode($pages->page_links_raw());
 ```
