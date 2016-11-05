@@ -14,9 +14,9 @@ class PaginatorHelper
   /**
    * Reduce the $data array, so that only values from one page are showing.
    *
-   * @param array  $data
-   * @param int    $perPage
-   * @param string $pageIdentifierFromGet
+   * @param array $data
+   * @param int   $perPage
+   * @param int   $page
    *
    * @return array
    */
