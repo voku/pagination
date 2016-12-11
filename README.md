@@ -120,7 +120,7 @@ $data['page_links'] = $pages->page_links();
 $this->_view->render('index', $data);
 ```
 
-## API example
+## API example (with Database)
 
 ```php
 use voku\helper\Paginator;
@@ -148,7 +148,7 @@ header('Content-Type: application/json');
 echo json_encode($pages->page_links_raw());
 ```
 
-... OR ...
+## API example (with Array)
 
 ```php
 use voku\helper\Paginator;
