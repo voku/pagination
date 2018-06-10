@@ -7,7 +7,6 @@
 [![Latest Stable Version](https://poser.pugx.org/voku/pagination/v/stable)](https://packagist.org/packages/voku/pagination) 
 [![Total Downloads](https://poser.pugx.org/voku/pagination/downloads)](https://packagist.org/packages/voku/pagination) 
 [![Latest Unstable Version](https://poser.pugx.org/voku/pagination/v/unstable)](https://packagist.org/packages/voku/pagination)
-[![PHP 7 ready](http://php7ready.timesplinter.ch/voku/pagination/badge.svg)](https://travis-ci.org/voku/pagination)
 [![License](https://poser.pugx.org/voku/pagination/license)](https://packagist.org/packages/voku/pagination)
 
 Paginator
@@ -20,7 +19,7 @@ You can download it from here, or require it using [composer](https://packagist.
 ```json
 {
     "require": {
-      "voku/pagination": "2.*"
+      "voku/pagination": "3.*"
     }
 }
 ```
@@ -41,7 +40,7 @@ composer require voku/pagination
 use voku\helper\Paginator;
 
 // include the composer-autoloader
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $pages = new Paginator('10','p');
 $pages->set_total('100'); //or a number of records
@@ -74,7 +73,7 @@ echo $pages->page_links('?' . 'status=' . $_GET['status'] . '&active=' . $_GET['
 use voku\helper\Paginator;
 
 // include the composer-autoloader
-require_once dirname(__DIR__) . '/vendor/composer/autoload_real.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 // create new object pass in number of pages and identifier
 $pages = new Paginator('10','p');
@@ -126,7 +125,7 @@ $this->_view->render('index', $data);
 use voku\helper\Paginator;
 
 // include the composer-autoloader
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 // create new object pass in number of pages and identifier
 $pages = new Paginator('10','p');
@@ -154,7 +153,7 @@ echo json_encode($pages->page_links_raw());
 use voku\helper\Paginator;
 
 // include the composer-autoloader
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $page = (int)$_GET['page'];
 $perPage = (int)$_GET['per_page'];

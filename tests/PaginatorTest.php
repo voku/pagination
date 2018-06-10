@@ -5,7 +5,7 @@ use voku\helper\Paginator;
 /**
  * PaginatorTest
  */
-class PaginatorTest extends PHPUnit_Framework_TestCase
+class PaginatorTest extends \PHPUnit\Framework\TestCase
 {
 
   /**
@@ -18,147 +18,147 @@ class PaginatorTest extends PHPUnit_Framework_TestCase
     $this->paginator->set_withLinkInCurrentLi(true);
 
     self::assertSame(
-        array(
-            0  => array(
+        [
+            0  => [
                 '?pid=1&pager=1' => true,
-            ),
-            1  => array(
+            ],
+            1  => [
                 '?pid=1&pager=2' => false,
-            ),
-            2  => array(
+            ],
+            2  => [
                 '?pid=1&pager=3' => false,
-            ),
-            3  => array(
+            ],
+            3  => [
                 '?pid=1&pager=4' => false,
-            ),
-            4  => array(
+            ],
+            4  => [
                 '?pid=1&pager=5' => false,
-            ),
-            5  => array(
+            ],
+            5  => [
                 '?pid=1&pager=6' => false,
-            ),
-            6  => array(
+            ],
+            6  => [
                 '?pid=1&pager=7' => false,
-            ),
-            7  => array(
+            ],
+            7  => [
                 '' => false,
-            ),
-            8  => array(
+            ],
+            8  => [
                 '?pid=1&pager=16' => false,
-            ),
-            9  => array(
+            ],
+            9  => [
                 '?pid=1&pager=17' => false,
-            ),
-            10 => array(
+            ],
+            10 => [
                 '?pid=1&pager=2' => false,
-            ),
-        ),
+            ],
+        ],
         $this->paginator->page_links_raw('?pid=1&')
     );
 
     $this->paginator->set_adjacent(8);
 
     self::assertSame(
-        array(
-            0  => array(
+        [
+            0  => [
                 '?pid=1&pager=1' => true,
-            ),
-            1  => array(
+            ],
+            1  => [
                 '?pid=1&pager=2' => false,
-            ),
-            2  => array(
+            ],
+            2  => [
                 '?pid=1&pager=3' => false,
-            ),
-            3  => array(
+            ],
+            3  => [
                 '?pid=1&pager=4' => false,
-            ),
-            4  => array(
+            ],
+            4  => [
                 '?pid=1&pager=5' => false,
-            ),
-            5  => array(
+            ],
+            5  => [
                 '?pid=1&pager=6' => false,
-            ),
-            6  => array(
+            ],
+            6  => [
                 '?pid=1&pager=7' => false,
-            ),
-            7  => array(
+            ],
+            7  => [
                 '?pid=1&pager=8' => false,
-            ),
-            8  => array(
+            ],
+            8  => [
                 '?pid=1&pager=9' => false,
-            ),
-            9  => array(
+            ],
+            9  => [
                 '?pid=1&pager=10' => false,
-            ),
-            10 => array(
+            ],
+            10 => [
                 '?pid=1&pager=11' => false,
-            ),
-            11 => array(
+            ],
+            11 => [
                 '?pid=1&pager=12' => false,
-            ),
-            12 => array(
+            ],
+            12 => [
                 '?pid=1&pager=13' => false,
-            ),
-            13 => array(
+            ],
+            13 => [
                 '?pid=1&pager=14' => false,
-            ),
-            14 => array(
+            ],
+            14 => [
                 '?pid=1&pager=15' => false,
-            ),
-            15 => array(
+            ],
+            15 => [
                 '?pid=1&pager=16' => false,
-            ),
-            16 => array(
+            ],
+            16 => [
                 '?pid=1&pager=17' => false,
-            ),
-            17 => array(
+            ],
+            17 => [
                 '?pid=1&pager=2' => false,
-            ),
-        ),
+            ],
+        ],
         $this->paginator->page_links_raw('?pid=1&')
     );
 
     $this->paginator->set_adjacent(2)->set_pageIdentifierFromGet(3);
 
     self::assertSame(
-        array(
-            0  => array(
+        [
+            0  => [
                 '?pid=1&pager=2' => false,
-            ),
-            1  => array(
+            ],
+            1  => [
                 '?pid=1&pager=1' => false,
-            ),
-            2  => array(
+            ],
+            2  => [
                 '?pid=1&pager=2' => false,
-            ),
-            3  => array(
+            ],
+            3  => [
                 '?pid=1&pager=3' => true,
-            ),
-            4  => array(
+            ],
+            4  => [
                 '?pid=1&pager=4' => false,
-            ),
-            5  => array(
+            ],
+            5  => [
                 '?pid=1&pager=5' => false,
-            ),
-            6  => array(
+            ],
+            6  => [
                 '?pid=1&pager=6' => false,
-            ),
-            7  => array(
+            ],
+            7  => [
                 '?pid=1&pager=7' => false,
-            ),
-            8  => array(
+            ],
+            8  => [
                 '' => false,
-            ),
-            9  => array(
+            ],
+            9  => [
                 '?pid=1&pager=16' => false,
-            ),
-            10 => array(
+            ],
+            10 => [
                 '?pid=1&pager=17' => false,
-            ),
-            11 => array(
+            ],
+            11 => [
                 '?pid=1&pager=4' => false,
-            ),
-        ),
+            ],
+        ],
         $this->paginator->page_links_raw('?pid=1&')
     );
   }
@@ -217,11 +217,11 @@ class PaginatorTest extends PHPUnit_Framework_TestCase
 
   public function testGetSQLLimitRaw()
   {
-    self::assertSame(array(0, 6), $this->paginator->get_limit_raw());
+    self::assertSame([0, 6], $this->paginator->get_limit_raw());
 
     $this->paginator->set_pageIdentifierFromGet(4);
 
-    self::assertSame(array(18, 6), $this->paginator->get_limit_raw());
+    self::assertSame([18, 6], $this->paginator->get_limit_raw());
   }
 
   /**
@@ -241,6 +241,5 @@ class PaginatorTest extends PHPUnit_Framework_TestCase
   protected function tearDown()
   {
   }
-
 
 }

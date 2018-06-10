@@ -5,11 +5,11 @@ use voku\helper\PaginatorHelper;
 /**
  * PaginatorHelperTest
  */
-class PaginatorHelperTest extends PHPUnit_Framework_TestCase
+class PaginatorHelperTest extends \PHPUnit\Framework\TestCase
 {
   public function testReduceData()
   {
-    $testArray = array(
+    $testArray = [
         0  => 'test0',
         1  => 'test1',
         2  => 'test2',
@@ -21,14 +21,14 @@ class PaginatorHelperTest extends PHPUnit_Framework_TestCase
         8  => 'test8',
         9  => 'test9',
         10 => 'test10',
-    );
+    ];
 
     $result = PaginatorHelper::reduceData($testArray, 2, 3);
-    $expexted = array(
+    $expected = [
         4 => 'test4',
         5 => 'test5',
-    );
+    ];
 
-    self::assertSame($expexted, $result);
+    self::assertSame($expected, $result);
   }
 }

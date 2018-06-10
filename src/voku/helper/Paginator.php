@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace voku\helper;
 
 /**
@@ -79,10 +81,11 @@ class Paginator
    * @param int    $perPage
    * @param string $instance
    */
-  public function __construct($perPage, $instance)
+  public function __construct(int $perPage, string $instance)
   {
-    $this->_instance = (string)$instance;
-    $this->_perPage = (int)$perPage;
+    $this->_instance = $instance;
+    $this->_perPage = $perPage;
+
     $this->set_instance();
   }
 
@@ -92,7 +95,7 @@ class Paginator
    *
    * @return string
    */
-  private function createLiCurrentOrNot($path, $counter)
+  private function createLiCurrentOrNot(string $path, int $counter): string
   {
     // init
     $html = '';
@@ -117,9 +120,9 @@ class Paginator
    * @param string $path
    * @param int    $counter
    *
-   * @return string
+   * @return array
    */
-  private function createLiCurrentOrNotRaw($path, $counter)
+  private function createLiCurrentOrNotRaw(string $path, int $counter): array
   {
     $textAndOrLink = $path . $this->_instance . '=' . $counter;
 
@@ -130,10 +133,10 @@ class Paginator
     }
 
     if ($counter == $this->_pageIdentifierFromGet) {
-      return array($currentTextAndOrLink => true);
-    } else {
-      return array($textAndOrLink => false);
+      return [$currentTextAndOrLink => true];
     }
+
+    return [$textAndOrLink => false];
   }
 
   /**
@@ -141,7 +144,7 @@ class Paginator
    *
    * @return string
    */
-  private function createLiFirstAndSecond($path)
+  private function createLiFirstAndSecond(string $path): string
   {
     $html = '';
 
@@ -157,10 +160,10 @@ class Paginator
    *
    * @return void
    */
-  private function createLiFirstAndSecondRaw($path, array &$pagination)
+  private function createLiFirstAndSecondRaw(string $path, array &$pagination)
   {
-    $pagination[] = array($path . $this->_instance . '=1' => false);
-    $pagination[] = array($path . $this->_instance . '=2' => false);
+    $pagination[] = [$path . $this->_instance . '=1' => false];
+    $pagination[] = [$path . $this->_instance . '=2' => false];
   }
 
   /**
@@ -170,7 +173,7 @@ class Paginator
    *
    * @return string
    */
-  public function getNextPrevLinks($path = '?')
+  public function getNextPrevLinks(string $path = '?'): string
   {
     // init
     $nextLink = '';
@@ -201,9 +204,9 @@ class Paginator
    *
    * @return string LIMIT-String for an SQL-query
    */
-  public function get_limit()
+  public function get_limit(): string
   {
-    return ' LIMIT ' . (int)$this->get_start() . ',' . (int)$this->_perPage;
+    return ' LIMIT ' . $this->get_start() . ',' . $this->_perPage;
   }
 
   /**
@@ -211,9 +214,9 @@ class Paginator
    *
    * @return array LIMIT-array for e.g. SQL-queries
    */
-  public function get_limit_raw()
+  public function get_limit_raw(): array
   {
-    return array((int)$this->get_start(), (int)$this->_perPage);
+    return [$this->get_start(), $this->_perPage];
   }
 
   /**
@@ -221,7 +224,7 @@ class Paginator
    *
    * @return int
    */
-  public function get_start()
+  public function get_start(): int
   {
     return ($this->_pageIdentifierFromGet * $this->_perPage) - $this->_perPage;
   }
@@ -233,7 +236,7 @@ class Paginator
    *
    * @return string
    */
-  public function page_links($path = '?')
+  public function page_links(string $path = '?'): string
   {
     // init
     $counter = 0;
@@ -332,11 +335,11 @@ class Paginator
    *
    * @return array
    */
-  public function page_links_raw($path = '?')
+  public function page_links_raw(string $path = '?'): array
   {
     // init
     $counter = 0;
-    $pagination = array();
+    $pagination = [];
 
     $prev = $this->_pageIdentifierFromGet - 1;
     $next = $this->_pageIdentifierFromGet + 1;
@@ -347,7 +350,7 @@ class Paginator
     if ($lastpage > 1) {
 
       if ($this->_pageIdentifierFromGet > 1) {
-        $pagination[] = array($path . $this->_instance . '=' . $prev => false);
+        $pagination[] = [$path . $this->_instance . '=' . $prev => false];
       }
 
       if ($lastpage < 7 + ($this->_adjacent * 2)) {
@@ -364,16 +367,16 @@ class Paginator
           }
         }
 
-        $pagination[] = array('' => false);
-        $pagination[] = array($path . $this->_instance . '=' . $tmpSave => false);
-        $pagination[] = array($path . $this->_instance . '=' . $lastpage => false);
+        $pagination[] = ['' => false];
+        $pagination[] = [$path . $this->_instance . '=' . $tmpSave => false];
+        $pagination[] = [$path . $this->_instance . '=' . $lastpage => false];
 
       } elseif ($lastpage - ($this->_adjacent * 2) > $this->_pageIdentifierFromGet && $this->_pageIdentifierFromGet > ($this->_adjacent * 2)) {
 
         $this->createLiFirstAndSecondRaw($path, $pagination);
 
         if ($this->_pageIdentifierFromGet != 5) {
-          $pagination[] = array('' => false);
+          $pagination[] = ['' => false];
         }
 
         for ($counter = $this->_pageIdentifierFromGet - $this->_adjacent;
@@ -381,15 +384,15 @@ class Paginator
           $pagination[] = $this->createLiCurrentOrNotRaw($path, $counter);
         }
 
-        $pagination[] = array('' => false);
-        $pagination[] = array($path . $this->_instance . '=' . $tmpSave => false);
-        $pagination[] = array($path . $this->_instance . '=' . $lastpage => false);
+        $pagination[] = ['' => false];
+        $pagination[] = [$path . $this->_instance . '=' . $tmpSave => false];
+        $pagination[] = [$path . $this->_instance . '=' . $lastpage => false];
 
       } else {
 
         $this->createLiFirstAndSecondRaw($path, $pagination);
 
-        $pagination[] = array('' => false);
+        $pagination[] = ['' => false];
 
         for ($counter = $lastpage - (2 + ($this->_adjacent * 2)); $counter <= $lastpage; $counter++) {
           $pagination[] = $this->createLiCurrentOrNot($path, $counter);
@@ -398,7 +401,7 @@ class Paginator
       }
 
       if ($this->_pageIdentifierFromGet < $counter - 1) {
-        $pagination[] = array($path . $this->_instance . '=' . $next => false);
+        $pagination[] = [$path . $this->_instance . '=' . $next => false];
       }
 
     }
@@ -413,9 +416,9 @@ class Paginator
    *
    * @return $this
    */
-  public function set_adjacent($adjacent)
+  public function set_adjacent(int $adjacent): self
   {
-    $this->_adjacent = (int)$adjacent;
+    $this->_adjacent = $adjacent;
 
     return $this;
   }
@@ -441,9 +444,9 @@ class Paginator
    *
    * @return $this
    */
-  public function set_pageIdentifierFromGet($pageId)
+  public function set_pageIdentifierFromGet(int $pageId): self
   {
-    $this->_pageIdentifierFromGet = (int)$pageId;
+    $this->_pageIdentifierFromGet = $pageId;
 
     return $this;
   }
@@ -455,7 +458,7 @@ class Paginator
    *
    * @return $this
    */
-  public function set_paginatorEndChar($string)
+  public function set_paginatorEndChar(string $string): self
   {
     $this->_paginatorEndChar = $string;
 
@@ -469,7 +472,7 @@ class Paginator
    *
    * @return $this
    */
-  public function set_paginatorEndCssClass($string)
+  public function set_paginatorEndCssClass(string $string): self
   {
     $this->_paginatorEndCssClass = $string;
 
@@ -483,7 +486,7 @@ class Paginator
    *
    * @return $this
    */
-  public function set_paginatorStartChar($string)
+  public function set_paginatorStartChar(string $string): self
   {
     $this->_paginatorStartChar = $string;
 
@@ -497,7 +500,7 @@ class Paginator
    *
    * @return $this
    */
-  public function set_paginatorStartCssClass($string)
+  public function set_paginatorStartCssClass(string $string): self
   {
     $this->_paginatorStartCssClass = $string;
 
@@ -511,7 +514,7 @@ class Paginator
    *
    * @return $this
    */
-  public function set_paginatorUlCssClass($string)
+  public function set_paginatorUlCssClass(string $string): self
   {
     $this->_paginatorUlCssClass = $string;
 
@@ -525,9 +528,9 @@ class Paginator
    *
    * @return $this
    */
-  public function set_total($totalRows)
+  public function set_total(int $totalRows): self
   {
-    $this->_totalRows = (int)$totalRows;
+    $this->_totalRows = $totalRows;
 
     return $this;
   }
@@ -539,9 +542,9 @@ class Paginator
    *
    * @return $this
    */
-  public function set_withLinkInCurrentLi($bool)
+  public function set_withLinkInCurrentLi(bool $bool): self
   {
-    $this->_withLinkInCurrentLi = (bool)$bool;
+    $this->_withLinkInCurrentLi = $bool;
 
     return $this;
   }
