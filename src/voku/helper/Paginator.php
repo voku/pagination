@@ -245,7 +245,7 @@ class Paginator
     $prev = $this->_pageIdentifierFromGet - 1;
     $next = $this->_pageIdentifierFromGet + 1;
 
-    $lastpage = ceil($this->_totalRows / $this->_perPage);
+    $lastpage = (int)ceil($this->_totalRows / $this->_perPage);
     $tmpSave = $lastpage - 1;
 
     if ($this->_pageIdentifierFromGet < $lastpage) {
@@ -344,7 +344,7 @@ class Paginator
     $prev = $this->_pageIdentifierFromGet - 1;
     $next = $this->_pageIdentifierFromGet + 1;
 
-    $lastpage = ceil($this->_totalRows / $this->_perPage);
+    $lastpage = (int)ceil($this->_totalRows / $this->_perPage);
     $tmpSave = $lastpage - 1;
 
     if ($lastpage > 1) {
