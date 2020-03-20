@@ -1,28 +1,15 @@
 [![Build Status](https://api.travis-ci.org/voku/pagination.svg?branch=master)](https://travis-ci.org/voku/pagination)
-[![Coverage Status](https://coveralls.io/repos/voku/pagination/badge.svg?branch=master&service=github)](https://coveralls.io/github/voku/pagination?branch=master)
 [![codecov.io](https://codecov.io/github/voku/pagination/coverage.svg?branch=master)](https://codecov.io/github/voku/pagination?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/voku/pagination/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/voku/pagination/?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/4576482a3fc44cd196b566a422da9751)](https://www.codacy.com/app/voku/pagination)
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/f2907ec9-2647-45bb-9606-8d1382a75d4d/mini.png)](https://insight.sensiolabs.com/projects/f2907ec9-2647-45bb-9606-8d1382a75d4d)
 [![Latest Stable Version](https://poser.pugx.org/voku/pagination/v/stable)](https://packagist.org/packages/voku/pagination) 
 [![Total Downloads](https://poser.pugx.org/voku/pagination/downloads)](https://packagist.org/packages/voku/pagination) 
-[![Latest Unstable Version](https://poser.pugx.org/voku/pagination/v/unstable)](https://packagist.org/packages/voku/pagination)
 [![License](https://poser.pugx.org/voku/pagination/license)](https://packagist.org/packages/voku/pagination)
+[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-yellow.svg)](https://www.paypal.me/moelleken)
+[![Donate to this project using Patreon](https://img.shields.io/badge/patreon-donate-yellow.svg)](https://www.patreon.com/voku)
 
-Paginator
-==========
+# 📖 Paginator
 
-Pagination, without a database dependency.
-
-## Install / Download
-You can download it from here, or require it using [composer](https://packagist.org/packages/voku/pagination).
-```json
-{
-    "require": {
-      "voku/pagination": "4.0.*"
-    }
-}
-```
+Pagination, without (database) dependencies.
 
 ## Install via "composer require"
 ```shell
