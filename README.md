@@ -42,8 +42,8 @@ use voku\helper\Paginator;
 // include the composer-autoloader
 require_once __DIR__ . '/vendor/autoload.php';
 
-$pages = new Paginator('10','p');
-$pages->set_total('100'); //or a number of records
+$pages = new Paginator(10,'p');
+$pages->set_total(100); // or a number of records
 
 // display the records here
 
@@ -76,14 +76,13 @@ use voku\helper\Paginator;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // create new object pass in number of pages and identifier
-$pages = new Paginator('10','p');
+$pages = new Paginator(10,'p');
 
 // get number of total records
-$rows = $db->query('SELECT id FROM table');
-$total = count($rows);
+$rowCount = $db->query('SELECT count(*) FROM table');
 
 // pass number of records to
-$pages->set_total($total); 
+$pages->set_total($rowCount); 
 
 $data = $db->query('SELECT * FROM table ' . $pages->get_limit());
 foreach($data as $row) {
@@ -104,7 +103,7 @@ in the controller:
 use voku\helper\Paginator;
 
 // create a new object
-$pages = new Paginator('10','p');
+$pages = new Paginator(10,'p');
 
 // set the total records, calling a method to get the number of records from a model
 $pages->set_total( $this->_model->get_all_count() );
@@ -128,14 +127,13 @@ use voku\helper\Paginator;
 require_once __DIR__ . '/vendor/autoload.php';
 
 // create new object pass in number of pages and identifier
-$pages = new Paginator('10','p');
+$pages = new Paginator(10,'p');
 
 // get number of total records
-$rows = $db->query('SELECT id FROM table');
-$total = count($rows);
+$rowCount = $db->query('SELECT COUNT(*) FROM table');
 
 // pass number of records to
-$pages->set_total($total); 
+$pages->set_total($rowCount); 
 
 $data = $db->query('SELECT * FROM table ' . $pages->get_limit());
 foreach($data as $row) {
