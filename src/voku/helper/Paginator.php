@@ -201,14 +201,14 @@ class Paginator
                     }
                 }
 
-                $pagination .= '<li><span>&hellip;</span></li>';
-                $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
-                $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
+                $pagination .= '<li class="page-item"><span>&hellip;</span></li>';
+                $pagination .= '<li class="page-item"><a class="page-link" href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
+                $pagination .= '<li class="page-item"><a class="page-link" href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
             } elseif ($lastpage - ($this->_adjacent * 2) > $this->_pageIdentifierFromGet && $this->_pageIdentifierFromGet > ($this->_adjacent * 2)) {
                 $pagination .= $this->createLiFirstAndSecond($path);
 
                 if ($this->_pageIdentifierFromGet != 5) {
-                    $pagination .= '<li><span>&hellip;</span></li>';
+                    $pagination .= '<li class="page-item"><span class="page-link">&hellip;</span></li>';
                 }
 
                 for ($counter = $this->_pageIdentifierFromGet - $this->_adjacent;
@@ -216,13 +216,13 @@ class Paginator
                     $pagination .= $this->createLiCurrentOrNot($path, $counter);
                 }
 
-                $pagination .= '<li><span>&hellip;</span></li>';
-                $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
-                $pagination .= '<li><a href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
+                $pagination .= '<li class="page-item"><span class="page-link">&hellip;</span></li>';
+                $pagination .= '<li class="page-item"><a class="page-link" href="' . $path . $this->_instance . '=' . $tmpSave . '">' . $tmpSave . '</a></li>';
+                $pagination .= '<li class="page-item"><a class="page-link" href="' . $path . $this->_instance . '=' . $lastpage . '">' . $lastpage . '</a></li>';
             } else {
                 $pagination .= $this->createLiFirstAndSecond($path);
 
-                $pagination .= '<li><span>&hellip;</span></li>';
+                $pagination .= '<li class="page-item"><span class="page-link">&hellip;</span></li>';
 
                 for ($counter = $lastpage - (2 + ($this->_adjacent * 2)); $counter <= $lastpage; ++$counter) {
                     $pagination .= $this->createLiCurrentOrNot($path, $counter);
@@ -230,9 +230,9 @@ class Paginator
             }
 
             if ($this->_pageIdentifierFromGet < $counter - 1) {
-                $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><a href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
+                $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><a class="page-link" href="' . $path . $this->_instance . '=' . $next . '">' . $this->_paginatorEndChar . '</a></li>';
             } else {
-                $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><span>' . $this->_paginatorEndChar . '</span></li>';
+                $pagination .= '<li class="' . $this->_paginatorEndCssClass . '"><span class="page-link">' . $this->_paginatorEndChar . '</span></li>';
             }
 
             $pagination .= '</ul>';
