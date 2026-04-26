@@ -25,10 +25,18 @@
     "MIT"
   ],
   "require": {
-    "php": ">=7.0.0"
+    "php": "^7.1 || ^8.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "~6.0|~7.0"
+    "phpstan/phpstan": "^0.12.100 || ^1.12.33 || ^2.1.51",
+    "phpunit/phpunit": "^7.5.20 || ^8.5.52 || ^9.6.34 || ^10.5.63 || ^11.5.55 || ^12.5.23"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "scripts": {
+    "phpstan": "@php vendor/bin/phpstan analyse",
+    "test": "@php vendor/bin/phpunit --no-configuration --bootstrap tests/bootstrap.php tests"
   },
   "autoload": {
     "psr-4": {
