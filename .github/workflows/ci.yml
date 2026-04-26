@@ -41,10 +41,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           tools: composer:v2
 
-      - name: Allow legacy PHPUnit on PHP 7.1
-        if: matrix.php == '7.1'
-        run: composer config audit.block-insecure false
-
       - name: Install dependencies
         run: composer update --no-interaction --prefer-dist
 
