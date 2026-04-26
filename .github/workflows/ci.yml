@@ -35,6 +35,7 @@ jobs:
         with:
           php-version: ${{ matrix.php }}
           coverage: none
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           tools: composer:v2
 
       - name: Allow legacy PHPUnit on PHP 7.1
