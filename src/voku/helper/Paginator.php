@@ -300,7 +300,7 @@ class Paginator
                 $pagination[] = ['' => false];
 
                 for ($counter = $lastpage - (2 + ($this->_adjacent * 2)); $counter <= $lastpage; ++$counter) {
-                    $pagination[] = $this->createLiCurrentOrNot($path, $counter);
+                    $pagination[] = $this->createLiCurrentOrNotRaw($path, $counter);
                 }
             }
 

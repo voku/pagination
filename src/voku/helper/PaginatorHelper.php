@@ -31,7 +31,7 @@ class PaginatorHelper
         $tmpCounterMin = 0;
         $tmpCounterMax = 0;
         foreach ($data as $dataKey => $dataValue) {
-            if ($tmpCounterMin >= $minMaxArray[0] || $minMaxArray[0] == 0) {
+            if ($tmpCounterMin >= $minMaxArray[0]) {
                 ++$tmpCounterMax;
                 $dataFiltered[$dataKey] = $dataValue;
 
