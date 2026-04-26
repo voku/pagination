@@ -133,7 +133,7 @@ class Paginator
     /**
      * returns the limit for the data source as array [start, end]
      *
-     * @return array LIMIT-array for e.g. SQL-queries
+     * @return array{0: int, 1: int} LIMIT-array for e.g. SQL-queries
      */
     public function get_limit_raw(): array
     {
@@ -246,7 +246,7 @@ class Paginator
      *
      * @param string $path
      *
-     * @return array
+     * @return array<int, array<int|string, bool>>
      */
     public function page_links_raw(string $path = '?'): array
     {
@@ -300,7 +300,7 @@ class Paginator
                 $pagination[] = ['' => false];
 
                 for ($counter = $lastpage - (2 + ($this->_adjacent * 2)); $counter <= $lastpage; ++$counter) {
-                    $pagination[] = $this->createLiCurrentOrNot($path, $counter);
+                    $pagination[] = $this->createLiCurrentOrNotRaw($path, $counter);
                 }
             }
 
@@ -483,7 +483,7 @@ class Paginator
      * @param string $path
      * @param int    $counter
      *
-     * @return array
+     * @return array<int|string, bool>
      */
     private function createLiCurrentOrNotRaw(string $path, int $counter): array
     {
@@ -518,8 +518,8 @@ class Paginator
     }
 
     /**
-     * @param string $path
-     * @param array  $pagination
+     * @param string                               $path
+     * @param array<int, array<int|string, bool>> $pagination
      *
      * @return void
      */
@@ -536,7 +536,7 @@ class Paginator
      */
     private function set_instance()
     {
-        if (isset($_GET[$this->_instance])) {
+        if (isset($_GET[$this->_instance]) && \is_scalar($_GET[$this->_instance])) {
             $this->_pageIdentifierFromGet = (int) $_GET[$this->_instance];
         }
 

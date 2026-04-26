@@ -1,8 +1,6 @@
 parameters:
     level: max
     reportUnmatchedIgnoredErrors: false
-    checkGenericClassInNonGenericObjectType: true
-    checkMissingIterableValueType: false
     paths:
         - %currentWorkingDirectory%/src/
     ignoreErrors:

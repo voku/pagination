@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.org/voku/pagination.svg?branch=master)](https://travis-ci.org/voku/pagination)
+[![CI](https://github.com/voku/pagination/actions/workflows/ci.yml/badge.svg)](https://github.com/voku/pagination/actions/workflows/ci.yml)
 [![codecov.io](https://codecov.io/github/voku/pagination/coverage.svg?branch=master)](https://codecov.io/github/voku/pagination?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/4576482a3fc44cd196b566a422da9751)](https://www.codacy.com/app/voku/pagination)
 [![Latest Stable Version](https://poser.pugx.org/voku/pagination/v/stable)](https://packagist.org/packages/voku/pagination) 

@@ -12,11 +12,11 @@ class PaginatorHelper
     /**
      * Reduce the $data array, so that only values from one page are showing.
      *
-     * @param array $data
-     * @param int   $perPage
-     * @param int   $page
+     * @param array<array-key, mixed> $data
+     * @param int                     $perPage
+     * @param int                     $page
      *
-     * @return array
+     * @return array<array-key, mixed>
      */
     public static function reduceData(array $data, int $perPage = 10, int $page = 1): array
     {
@@ -31,7 +31,7 @@ class PaginatorHelper
         $tmpCounterMin = 0;
         $tmpCounterMax = 0;
         foreach ($data as $dataKey => $dataValue) {
-            if ($tmpCounterMin >= $minMaxArray[0] || $minMaxArray[0] == 0) {
+            if ($tmpCounterMin >= $minMaxArray[0]) {
                 ++$tmpCounterMax;
                 $dataFiltered[$dataKey] = $dataValue;
 
