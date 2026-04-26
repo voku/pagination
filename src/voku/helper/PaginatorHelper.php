@@ -12,11 +12,11 @@ class PaginatorHelper
     /**
      * Reduce the $data array, so that only values from one page are showing.
      *
-     * @param array $data
-     * @param int   $perPage
-     * @param int   $page
+     * @param array<array-key, mixed> $data
+     * @param int                     $perPage
+     * @param int                     $page
      *
-     * @return array
+     * @return array<array-key, mixed>
      */
     public static function reduceData(array $data, int $perPage = 10, int $page = 1): array
     {
